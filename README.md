@@ -32,11 +32,16 @@ Big Data due to the large amount of data that need to be managed.
 ![Diagrama](img/factura.png)
 #### Diagram
 ![Diagrama](img/diagrama.PNG)
-#### TABLE CIUDAD
-| Nombre campo  | Tipo de dato  |Formato de dato|Tamaño de campo|Descripcion|Ejemplo|
-| ------------- |:-------------:| -----:|:----:|:----:|:----:|
-| id_ciudad     | int(PK) | NNN |3|Número único para identificar la ciudad|001|
-| desc      | varchar2      |   - |50|Nombre de la ciudad|Puerto Montt|
+### Database dictionary
+![Diagrama](img/tabla-ciudad.PNG)
+![Diagrama](img/tabla-comuna.PNG)
+![Diagrama](img/tabla-direccion.PNG)
+![Diagrama](img/tabla-cliente.PNG)
+![Diagrama](img/tabla-factura.PNG)
+![Diagrama](img/tabla-pago.PNG)
+![Diagrama](img/tabla-detalle-factura.PNG)
+![Diagrama](img/tabla-item.PNG)
+
 
 ### 4- Someone ask you to create a webapp to chat with clients, this should support Whatsapp and Facebook Messenger, Which architecture and technologies will you use?(please add a diagraman in your answer)
 ```

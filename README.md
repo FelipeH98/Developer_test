@@ -48,12 +48,17 @@ Big Data due to the large amount of data that need to be managed.
 ```
 ### 5- What is your process to test and find bugs in an application?
 ```
+In my test process I always try to force every single function, variable or validation introducing different types of data to forms ,
+inputs and all types of elements that the application has to ensure that every functionality works according to requeriments.
 ```
 ### 6- What do you know about Cloud Computing?
 ```
+Cloud computing bring us on demand virtualized resources that we can access through internet (Compute services (AWS EC2), Storage and networking services).
+Cloud computing it's conformed by IAAS (Example: Virtual Machines,Hosting a complete infrastructure:AWS, Azure), PAAS(Examples: Platforms to build on: Heroku), SAAS(Software: Gmail, Drive)
 ```
 ### 7- What do you know about Agile software development process?
 ```
+Agile methodology works with iterative development and continuous collaboration with the client also allow flexibility to adapt the project and its requirements.
 ```
 ### 8- remember question number 3?. Create a query to obtain all data from the tables you create to store invoice data
 #### To create models
@@ -165,7 +170,15 @@ N° FACTURA FECHA EMIS FECHA VENC SEÑOR                          RUT           
 ![Results](img/resultado-consulta.PNG)
 
 ### 9- Create a JSON with your personal data, include at least 1 object and 1 array
-```
+```json
+[{
+    "first_name": "Felipe",
+    "last_name": "Herrera",
+    "age": "22",
+    "address": "San Pablo #9190",
+    "contact_email_addresses": ["felipe.ah14@gmail.com", "fe.herrerat@alumnos.duoc.cl"],
+    "marital_status": "Single"
+}]
 ```
 ### 10- Finding errors is a good skill to have, please review the next code and tell us what is the problem, why the message is trigered before is intended? do the nessesary changes in the code to fix it.
 #### I run this with NodeJS

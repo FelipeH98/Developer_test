@@ -6,7 +6,7 @@ My process while programming:
 - Initially I analyze the task that I'm working on and try to define input and output data for it.
 
 - If it's a complex task, I usually write steps that I need to solve the task before I code it,
-  that's help me a lot to understand the whole problem and find the best solution.
+  that help me a lot to understand the whole problem and find the best solution.
   
 - When I'm coding I leave a comment next to the most important lines or functions explaining what it does.
 
@@ -177,6 +177,7 @@ N° FACTURA FECHA EMIS FECHA VENC SEÑOR                          RUT           
     "age": "22",
     "address": "San Pablo #9190",
     "contact_email_addresses": ["felipe.ah14@gmail.com", "fe.herrerat@alumnos.duoc.cl"],
+    "cellphone_number":"945474085",
     "marital_status": "Single"
 }]
 ```

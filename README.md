@@ -262,7 +262,9 @@ module.exports = getOpenedBusiness;
 ```
 
 #### Solution's repository
-<https://github.com/FelipeH98>
+<https://github.com/FelipeH98/A-Simple-Store-App>
+#### Heroku's URl
+<https://felipestore.herokuapp.com/>
 
 ### Challenge 2: Chatbot
 ```

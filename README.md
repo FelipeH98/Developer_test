@@ -262,6 +262,7 @@ module.exports = getOpenedBusiness;
 ```
 
 #### Solution's repository
+A simple react app that allow to add and delete items from a shopping cart.
 <https://github.com/FelipeH98/A-Simple-Store-App>
 #### Heroku's URl
 <https://felipestore.herokuapp.com/>

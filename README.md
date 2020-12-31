@@ -6,7 +6,7 @@ My process while programming:
 - Initially I analyze the task that I'm working on and try to define input and output data for it.
 
 - If it's a complex task, I usually write steps that I need to solve the task before I code it,
-  that's help me a lot to understand the whole problem and find the best solution.
+  that help me a lot to understand the whole problem and find the best solution.
   
 - When I'm coding I leave a comment next to the most important lines or functions explaining what it does.
 
@@ -29,18 +29,18 @@ Big Data due to the large amount of data that need to be managed.
 ```
 ### 3- Grab any invoice and create a database to store the data on it, create the entity diagram and database dictionary too.
 #### Invoice image (Google)
-![Diagrama](img/factura.png)
+![Diagram](img/factura.png)
 #### Diagram
 ![Diagrama](img/diagrama.PNG)
 ### Database dictionary
-![Diagrama](img/tabla-ciudad.PNG)
-![Diagrama](img/tabla-comuna.PNG)
-![Diagrama](img/tabla-direccion.PNG)
-![Diagrama](img/tabla-cliente.PNG)
-![Diagrama](img/tabla-factura.PNG)
-![Diagrama](img/tabla-pago.PNG)
-![Diagrama](img/tabla-detalle-factura.PNG)
-![Diagrama](img/tabla-item.PNG)
+![Dictionary](img/tabla-ciudad.PNG)
+![Dictionary](img/tabla-comuna.PNG)
+![Dictionary](img/tabla-direccion.PNG)
+![Dictionary](img/tabla-cliente.PNG)
+![Dictionary](img/tabla-factura.PNG)
+![Dictionary](img/tabla-pago.PNG)
+![Dictionary](img/tabla-detalle-factura.PNG)
+![Dictionary](img/tabla-item.PNG)
 
 
 ### 4- Someone ask you to create a webapp to chat with clients, this should support Whatsapp and Facebook Messenger, Which architecture and technologies will you use?(please add a diagraman in your answer)
@@ -48,18 +48,138 @@ Big Data due to the large amount of data that need to be managed.
 ```
 ### 5- What is your process to test and find bugs in an application?
 ```
+In my test process I always try to force every single function, variable or validation introducing different types of data to forms ,
+inputs and all types of elements that the application has to ensure that every functionality works according to requeriments.
 ```
 ### 6- What do you know about Cloud Computing?
 ```
+Cloud computing bring us on demand virtualized resources that we can access through internet (Compute services (AWS EC2), Storage and networking services).
+Cloud computing it's conformed by IAAS (Example: Virtual Machines,Hosting a complete infrastructure:AWS, Azure), PAAS(Examples: Platforms to build on: Heroku), SAAS(Software: Gmail, Drive)
 ```
 ### 7- What do you know about Agile software development process?
 ```
+Agile methodology works with iterative development and continuous collaboration with the client also allow flexibility to adapt the project and its requirements.
 ```
 ### 8- remember question number 3?. Create a query to obtain all data from the tables you create to store invoice data
+#### To create models
+```sql
+CREATE TABLE CIUDAD(
+ID_CIUDAD NUMBER(3) PRIMARY KEY,
+DESCRIP VARCHAR2(50) NOT NULL);
+
+CREATE TABLE COMUNA(
+ID_COMUNA NUMBER(3) PRIMARY KEY,
+DESCRIP VARCHAR2(50) NOT NULL,
+ID_CIUDAD NUMBER(3) NOT NULL CONSTRAINT COMUNA_CIUDAD_FK REFERENCES CIUDAD(ID_CIUDAD));
+
+CREATE TABLE DIRECCION(
+ID_DIR NUMBER(9) PRIMARY KEY,
+DIRECCION VARCHAR2(50) NOT NULL,
+ID_COMUNA NUMBER(3) NOT NULL CONSTRAINT DIR_COMUNA_FK REFERENCES COMUNA (ID_COMUNA)
+);
+
+CREATE TABLE CLIENTE(
+ID_CLIENTE NUMBER(9) PRIMARY KEY,
+NOMBRE_CLI VARCHAR2(30) NOT NULL,
+RUT_CLI NUMBER(8) NOT NULL,
+DV_CLI VARCHAR2(1) NOT NULL,
+GIRO_CLI VARCHAR2(50) NOT NULL,
+ID_DIR NOT NULL CONSTRAINT CLI_DIR_FK REFERENCES DIRECCION (ID_DIR)
+);
+
+CREATE TABLE PAGO(
+ID_PAGO NUMBER(2) PRIMARY KEY,
+DESCRIP VARCHAR2(20) NOT NULL
+);
+
+CREATE TABLE FACTURA(
+ID_FACTURA NUMBER(9) PRIMARY KEY,
+FEC_EMI DATE DEFAULT (SYSDATE) NOT NULL,
+FEC_VEN DATE NOT NULL,
+ID_PAGO NUMBER(2) NOT NULL CONSTRAINT FACT_PAGO_FK REFERENCES PAGO(ID_PAGO),
+ID_CLIENTE NUMBER(9) NOT NULL CONSTRAINT FACT_CLI_FK REFERENCES CLIENTE(ID_CLIENTE)
+);
+
+CREATE TABLE ITEM(
+ID_ITEM NUMBER(15) PRIMARY KEY,
+NOMBRE_ITEM VARCHAR2(50) NOT NULL,
+P_UNITARIO NUMBER(9) NOT NULL
+);
+
+CREATE TABLE DETALLE_FACTURA(
+ID_FACTURA NUMBER(9) NOT NULL CONSTRAINT DF_FACT_PFK REFERENCES FACTURA(ID_FACTURA) ON DELETE CASCADE,
+ID_ITEM NUMBER(15) NOT NULL  CONSTRAINT DF_ITEM_PFK REFERENCES ITEM(ID_ITEM) ON DELETE CASCADE,
+CANTIDAD NUMBER(3) NOT NULL,
+PORC_DCTO NUMBER(3,2) NOT NULL,
+SUB_TOTAL NUMBER(10) NOT NULL,
+CONSTRAINT FACT_ITEM_PK PRIMARY KEY (ID_FACTURA,ID_ITEM)
+);
 ```
+#### To populate
+```sql
+INSERT INTO CIUDAD 
+VALUES(001,'Puerto Montt');
+
+INSERT INTO COMUNA 
+VALUES(001,'Puerto Montt',001);
+
+INSERT INTO DIRECCION
+VALUES(000000001,'Los Alamos #122', 001);
+
+INSERT INTO CLIENTE
+VALUES (000000001,'Maquinarias Express',88888888,'8','Arriendo de maquinaria pesada',000000001);
+
+INSERT INTO PAGO
+VALUES(01,'Tarjeta Debito');
+
+INSERT INTO FACTURA
+VALUES(000000001,TO_DATE('01-12-2020','dd-MM-yyyy'),TO_DATE('15-12-2020','dd-MM-yyyy'),01,000000001);
+
+INSERT INTO ITEM
+VALUES(157978039593108,'Implementacion',168067);
+
+INSERT INTO DETALLE_FACTURA
+VALUES(000000001, 157978039593108,1,0.0,168067);
+
 ```
+#### Oracle query.
+```sql
+SELECT FAC.ID_FACTURA AS "N° FACTURA",TO_CHAR(FAC.FEC_EMI,'dd/MM/yyyy') AS "FECHA EMISIÓN",TO_CHAR(FAC.FEC_VEN,'dd/MM/yyyy') AS "FECHA VENCIMIENTO" ,CLI.NOMBRE_CLI AS "SEÑOR",TO_CHAR( CLI.RUT_CLI,'99G999G999')||'-'||CLI.DV_CLI AS "RUT", CLI.GIRO_CLI AS "GIRO",DIR.DIRECCION,
+COMU.DESCRIP AS COMUNA,CIU.DESCRIP AS "CIUDAD",PA.DESCRIP AS "FORMA DE PAGO", DF.ID_ITEM AS "CODIGO",IT.NOMBRE_ITEM AS "ITEM",TO_CHAR(IT.P_UNITARIO,'$999g999g999') AS "VALOR UNITARIO",DF.CANTIDAD, DF.PORC_DCTO AS "% DTO.", TO_CHAR(DF.SUB_TOTAL,'$999g999g999') AS "SUBTOTAL" FROM
+CLIENTE CLI JOIN FACTURA FAC
+ON CLI.ID_CLIENTE = FAC.ID_CLIENTE
+JOIN DIRECCION DIR
+ON CLI.ID_DIR=DIR.ID_DIR
+JOIN COMUNA COMU
+ON DIR.ID_COMUNA=COMU.ID_COMUNA
+JOIN CIUDAD CIU
+ON COMU.ID_CIUDAD=CIU.ID_CIUDAD
+JOIN PAGO PA
+ON FAC.ID_PAGO=PA.ID_PAGO
+JOIN DETALLE_FACTURA DF
+ON FAC.ID_FACTURA=DF.ID_FACTURA
+JOIN ITEM IT
+ON DF.ID_ITEM=IT.ID_ITEM;
+```
+#### Results (ORACLE outputs)
+```
+N° FACTURA FECHA EMIS FECHA VENC SEÑOR                          RUT           GIRO                                               DIRECCION                                          COMUNA                                             CIUDAD                                             FORMA DE PAGO            CODIGO ITEM                                               VALOR UNITARI   CANTIDAD     % DTO. SUBTOTAL     
+---------- ---------- ---------- ------------------------------ ------------- -------------------------------------------------- -------------------------------------------------- -------------------------------------------------- -------------------------------------------------- -------------------- --------------- -------------------------------------------------- ------------- ---------- ---------- -------------
+         1 01/12/2020 15/12/2020 Maquinarias Express             88.888.888-8 Arriendo de maquinaria pesada                      Los Alamos #122                                    Puerto Montt                                       Puerto Montt                                       Tarjeta Debito       157978039593108 Implementacion                                          $168.067          1          0      $168.067
+```
+![Results](img/resultado-consulta.PNG)
+
 ### 9- Create a JSON with your personal data, include at least 1 object and 1 array
-```
+```json
+[{
+    "first_name": "Felipe",
+    "last_name": "Herrera",
+    "age": "22",
+    "address": "San Pablo #9190",
+    "contact_email_addresses": ["felipe.ah14@gmail.com", "fe.herrerat@alumnos.duoc.cl"],
+    "cellphone_number":"945474085",
+    "marital_status": "Single"
+}]
 ```
 ### 10- Finding errors is a good skill to have, please review the next code and tell us what is the problem, why the message is trigered before is intended? do the nessesary changes in the code to fix it.
 #### I run this with NodeJS
@@ -142,7 +262,10 @@ module.exports = getOpenedBusiness;
 ```
 
 #### Solution's repository
-<https://github.com/FelipeH98>
+A simple react app that allow to add and delete items from a shopping cart.
+<https://github.com/FelipeH98/A-Simple-Store-App>
+#### Heroku's URl
+<https://felipestore.herokuapp.com/>
 
 ### Challenge 2: Chatbot
 ```

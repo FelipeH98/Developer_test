@@ -44,8 +44,21 @@ Big Data due to the large amount of data that need to be managed.
 
 
 ### 4- Someone ask you to create a webapp to chat with clients, this should support Whatsapp and Facebook Messenger, Which architecture and technologies will you use?(please add a diagraman in your answer)
-```
-```
+#### Facebook Messenger
+
+You could create a guided conversation app and also chat directly from a personal website with your clients
+in Messenger by integrating Facebook API to your Web App.
+Documentation: <https://developers.facebook.com/docs/messenger-platform/introduction>
+
+#### WhatsApp Messenger
+For WhatsApp you could also use the WhatsApp Business API but it require an approved account
+(<https://www.facebook.com/business/m/whatsapp/business-api>) or you could use the service through 
+WhatsApp Business specialized providers (<https://www.facebook.com/business/partner-directory/search?platforms=whatsapp&solution_type=messaging#>).
+Twilio is a provider that gives you a phone number, Account SID and an auth token which are used for JS send and receive messages functions.
+Documentation: <https://developers.facebook.com/docs/whatsapp/overview>
+#### Arquitecture
+WebApp allow to the User to send messages to Messenger and WhatsApp Clients and also receive it from them.
+![Arq-diag](img/arq-dia.png)
 ### 5- What is your process to test and find bugs in an application?
 ```
 In my test process I always try to force every single function, variable or validation introducing different types of data to forms ,
@@ -273,4 +286,4 @@ A simple react app that allow to add and delete items from a shopping cart.
 - let us know if you complete this challenge. We will contact you so we can test it
 ```
 #### Solution's repository
-<https://github.com/FelipeH98>
+Incomplete.

@@ -286,4 +286,7 @@ A simple react app that allow to add and delete items from a shopping cart.
 - let us know if you complete this challenge. We will contact you so we can test it
 ```
 #### Solution's repository
-Incomplete.
+A simple ChatBot that gives you information about LocalShop.
+<https://github.com/FelipeH98/FelipeH98.github.io>
+#### Hosted on github.io
+<https://felipeh98.github.io/>
